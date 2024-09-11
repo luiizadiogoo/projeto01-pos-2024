@@ -22,5 +22,5 @@
   ```
 
 # Grupo
-- Participante 01
-- Participante 02
+- Camile
+- Maria Luiza
