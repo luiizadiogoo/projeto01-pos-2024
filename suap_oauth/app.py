@@ -7,7 +7,7 @@ app.debug = True
 app.secret_key = 'development'
 oauth = OAuth(app)
 
-# Configurando logging para depuração
+
 logging.basicConfig(level=logging.DEBUG)
 
 oauth.register(
@@ -25,9 +25,9 @@ oauth.register(
 def index():
     if 'suap_token' in session:
         try:
-            # Adicionando cabeçalho de autorização
+            
             meus_dados = oauth.suap.get('v2/minhas-informacoes/meus-dados')
-            meus_dados.raise_for_status()  # Levanta um erro para respostas de erro
+            meus_dados.raise_for_status()  
             return render_template('user.html', user_data=meus_dados.json())
         except Exception as e:
             app.logger.error(f"Erro ao obter dados do usuário: {e}")
@@ -59,7 +59,7 @@ def boletim():
     if request.method == 'POST':
         ano_letivo = request.form['ano_letivo']
         try:
-            # Obtendo o token
+            
             token = session.get('suap_token')['access_token']
             headers = {
                 "Authorization": f'Bearer {token}'
@@ -76,4 +76,4 @@ def boletim():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)  # Inicie o aplicativo Flask
+    app.run(debug=True)  
