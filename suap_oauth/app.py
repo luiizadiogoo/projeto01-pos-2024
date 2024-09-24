@@ -7,9 +7,10 @@ app.debug = True
 app.secret_key = 'development'
 oauth = OAuth(app)
 
-
+# Configuração de logging
 logging.basicConfig(level=logging.DEBUG)
 
+# Registro do cliente OAuth para o SUAP
 oauth.register(
     name='suap',
     client_id="6JaHJ35xJKex5arVyQPzhcFbmfJp32zOgG2aBms1",
@@ -25,9 +26,8 @@ oauth.register(
 def index():
     if 'suap_token' in session:
         try:
-            
             meus_dados = oauth.suap.get('v2/minhas-informacoes/meus-dados')
-            meus_dados.raise_for_status()  
+            meus_dados.raise_for_status()
             return render_template('user.html', user_data=meus_dados.json())
         except Exception as e:
             app.logger.error(f"Erro ao obter dados do usuário: {e}")
@@ -51,15 +51,15 @@ def auth():
     session['suap_token'] = token
     return redirect(url_for('index'))
 
-@app.route('/boletim', methods=['GET', 'POST'])
+@app.route('/boletim', methods=['POST'])
 def boletim():
     if 'suap_token' not in session:
         return redirect(url_for('index'))
 
     if request.method == 'POST':
         ano_letivo = request.form['ano_letivo']
+        app.logger.debug(f"Recebendo ano letivo: {ano_letivo}")
         try:
-            
             token = session.get('suap_token')['access_token']
             headers = {
                 "Authorization": f'Bearer {token}'
@@ -67,12 +67,16 @@ def boletim():
             response = oauth.suap.get(f"v2/minhas-informacoes/boletim/{ano_letivo}/1", headers=headers)
             response.raise_for_status()
             boletim_data = response.json()
-            return render_template('boletim.html', boletim=boletim_data, ano_letivo=ano_letivo)
+            app.logger.debug(f"Dados do boletim recebidos: {boletim_data}")
+            # Renderiza o user.html com o boletim
+            meus_dados = oauth.suap.get('v2/minhas-informacoes/meus-dados')
+            meus_dados.raise_for_status()
+            return render_template('user.html', user_data=meus_dados.json(), boletim=boletim_data, ano_letivo=ano_letivo)
         except Exception as e:
             app.logger.error(f"Erro ao obter boletim: {e}")
             return "Erro ao obter boletim", 500
 
-    return render_template('boletim_form.html')
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
-    app.run(debug=True)  
+    app.run(debug=True)
