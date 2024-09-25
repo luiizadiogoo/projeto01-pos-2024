@@ -77,7 +77,7 @@
   
   .header {
     color: var(--default-color);
-    background-color: var(--background-color);
+    background-color: green;
     position: fixed;
     top: 0;
     left: 0;

@@ -3,214 +3,239 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0"
-name="viewport">
-<title>SUAP-oauth</title>
-<link href="assets/img/favicon.png" rel="icon">
-<link
-href="iPortfolio/assets/vendor/bootstrap-icons/bootstrap-icons.css"
-rel="stylesheet">
-<link href="static/css/main1.css" rel="stylesheet">
-<link href="static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<link href="static/css/main1.css" rel="stylesheet">
+
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>SUAP-oauth</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 <style>
-.button {
-display:-webkit-box;
-display:-webkit-flex;
-display:-moz-box;
-display:-ms-flexbox;
-display: flex;
-justify-content: center;
-align-items: center;
-padding: 0 20px;
-min-width: 160px;
-height: 50px;
-background-color: #57b846; /* Cor do botão */
-border-radius: 25px; /* Arredondar os cantos */
-font-family: 'Poppins', sans-serif; /* Fonte Poppins */
-font-size: 16px;
-color: #fff; /* Cor do texto */
-line-height: 1.2;-webkit-transition: all 0.4s;-o-transition: all 0.4s;-moz-transition: all 0.4s;
-transition: all 0.4s;
-text-decoration: none; /* Remover o sublinhado */}
-.button:hover {
-background-color: darkgreen; /* Cor ao passar o mouse */
-}
+  .button {
+  display:-webkit-box;
+  display:-webkit-flex;
+  display:-moz-box;
+  display:-ms-flexbox;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+  min-width: 160px;
+  height: 50px;
+  background-color: #57b846; /* Cor do botão */
+  border-radius: 25px; /* Arredondar os cantos */
+  font-family: 'Poppins', sans-serif; /* Fonte Poppins */
+  font-size: 16px;
+  color: #fff; /* Cor do texto */
+  line-height: 1.2;-webkit-transition: all 0.4s;-o-transition: all 0.4s;-moz-transition: all 0.4s;
+  transition: all 0.4s;
+  text-decoration: none; /* Remover o sublinhado */}
+  .button:hover {
+  background-color: darkgreen; /* Cor ao passar o mouse */
+  }
 </style>
 </head>
-<body class="index-page">
-<header id="header" class="header dark-background d-flex
-flex-column">
-<div class="profile-img">
-<img src="{{ user_data['url_foto_150x200'] }}" alt="foto"
-class="img-fluid rounded-circle">
-</div>
-<a href="index.html" class="logo d-flex align-items-center
-justify-content-center">
-<h1 class="sitename"><span>{{user_data.get('nome_usual', 'Não disponível') }}</span></li></h1>
-</a>
-<nav id="navmenu" class="navmenu">
-<ul>
-<li><a href="#about"><i class="bi bi-person navicon"> <svg
-xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-<path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2
-2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6
-4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8
-10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
-</svg></i> Inicio</a></li>
-<li><a href="#resume"><i class="bi bi-file-earmark-text
-navicon"> <svg xmlns="http://www.w3.org/2000/svg" width="16"
-height="16" fill="currentColor" class="bi bi-file-earmark-text"
-viewBox="0 0 16 16">
-<path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zM5 9.5a.5.5 0
-0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1
-.5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5"/>
-<path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0
-2-2V4.5zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0
-1-1-1V2a1 1 0 0 1 1-1z"/>
-</svg> </i> Boletim</a></li>
-<p class="d-flex align-items-center justify-content-center"><a class="button" style="width: 20px;" href="{{url_for('logout')}}">Logout</a>
-</p>
-</ul>
-</nav>
-</header>
-<main class="main">
-<section id="about" class="about section">
-<div class="container section-title" data-aos="fade-up">
-<h2>Dados do Perfil</h2>
-<div class="container" data-aos="fade-up" data-aos-delay="100">
-<div class="row gy-4 justify-content-center">
-<div class="col-lg-4">
-<img src="{{ user_data['url_foto_150x200'] }}" alt="foto"
-class="img-fluid" alt="">
-</div>
-<div class="col-lg-8 content">
-<p class="fst-italic py-3"><b>Nome Completo:</b> {{
-user_data.get('vinculo', {}).get('nome', 'Não disponível') }}</p>
-<div class="row">
-<div class="col-lg-6">
-<ul>
-<li><strong>ID:</strong> <span>{{ user_data.get('id',
-'Não disponível') }}</span></li>
-<li><strong>Matrícula:</strong> <span>{{
-user_data.get('vinculo', {}).get('matricula', 'Não disponível')
-}}</span></li>
-<li><strong>CPF:</strong> <span>{{
-user_data.get('cpf', 'Não disponível') }}</span></li>
-<li><strong>RG:</strong> <span>
-{% if user_data.get('rg') in [None, '', 'None',
-'None-/-', '-'] %}
-Não disponível
-{% else %}
-{{ user_data.get('rg') }}
-{% endif %}
-</span></li>
-</ul>
-</div>
-<div class="col-lg-6">
-<ul>
-<li><strong>Filiação:</strong> <span>{{
-user_data.get('filiacao', ['Não disponível', 'Não disponível']) |
-join(' e ') if user_data.get('filiacao') not in [['None', 'None'],
-[None, None]] else 'Não disponível' }}</span></li>
-<li><strong>Data de Nascimento:</strong> <span>{{
-user_data.get('data_nascimento', 'Não disponível') }}</span></li>
-<li><strong>Naturalidade:</strong> <span>{{
-user_data.get('naturalidade', 'Não disponível') if
-user_data.get('naturalidade') != '-' else 'Não disponível'
-}}</span></li>
-<li><strong>Tipo Sanguíneo:</strong> <span>{{
-user_data.get('tipo_sanguineo') if user_data.get('tipo_sanguineo') not
-in ['None', None, 'NoneNone'] else 'Não disponível' }}</span></li>
-<li><strong>Email:</strong> <span>{{
-user_data.get('email', 'Não disponível') }}</span></li>
-</ul>
-</div>
-</div>
-</div>
-<p><b>Vínculo:</b></p>
-<div class="row">
-<div class="col-lg-6">
-<ul style="list-style-type: none;">
-<li><b>Curso:</b> {{ user_data.get('vinculo', {}).get('curso',
-'Não disponível') }}</li>
-<li><b>Campus:</b> {{ user_data.get('vinculo',
-{}).get('campus', 'Não disponível') }}</li>
-<li><b>Situação:</b> {{ user_data.get('vinculo',
-{}).get('situacao', 'Não disponível') }}</li>
-</ul>
-</div>
-<div class="col-lg-6">
-<ul style="list-style-type: none;">
-<li><b>Situação Sistêmica:</b> {{ user_data.get('vinculo',
-{}).get('situacao_sistemica', 'Não disponível') }}</li>
-<li><b>Possui Cota MEC:</b> {{ 'Sim' if
-user_data.get('vinculo', {}).get('cota_mec') else 'Não' }}</li>
-<li><b>Possui Cota Sistec:</b> {{ 'Sim' if
-user_data.get('vinculo', {}).get('cota_sistec') else 'Não' }}</li>
-<li><b>Lattes:</b> <a href="{{ user_data.get('vinculo',
-{}).get('curriculo_lattes', '#') }}" target="_blank">Currículo
-Lattes</a></li>
-</ul>
-</div></div> </div> </div>
-</section>
-<!--Resume Section-->
-<section id="resume" class="resume section light-background">
-  <div class="container section-title" data-aos="fade-up">
-      <h2>Visualizar Boletim</h2>
-      <div class="d-flex align-items-center justify-content-center">
-          <form method="post" action="{{ url_for('boletim') }}">
-              <label for="ano_letivo">Ano Letivo:</label>
-              <input type="text" name="ano_letivo" id="ano_letivo" required>
-              <div class="d-flex align-items-center justify-content-center">
-                  <button class="button" style="margin-top: 4%; border: none;" type="submit">Ver Boletim</button>
-              </div>
-          </form>
+  <body class="index-page">
+    <header id="header" class="header dark-background d-flex
+    flex-column">
+    <div class="profile-img">
+    <img src="{{ user_data['url_foto_150x200'] }}" alt="foto"
+    class="img-fluid rounded-circle">
+    </div>
+    <a href="index.html" class="logo d-flex align-items-center
+    justify-content-center">
+    <h1 class="sitename"><span>{{user_data.get('nome_usual', 'Não disponível') }}</span></li></h1>
+    </a>
+    <nav id="navmenu" class="navmenu">
+    <ul>
+    <li><a href="#about"><i class="bi bi-person navicon"> <svg
+    xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+    fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2
+    2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6
+    4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8
+    10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+    </svg></i> Inicio</a></li>
+    <li><a href="#resume"><i class="bi bi-file-earmark-text
+    navicon"> <svg xmlns="http://www.w3.org/2000/svg" width="16"
+    height="16" fill="currentColor" class="bi bi-file-earmark-text"
+    viewBox="0 0 16 16">
+    <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zM5 9.5a.5.5 0
+    0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1
+    .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5"/>
+    <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0
+    2-2V4.5zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0
+    1-1-1V2a1 1 0 0 1 1-1z"/>
+    </svg> </i> Boletim</a></li>
+    <p class="d-flex align-items-center justify-content-center"><a class="button" style="width: 20px;" href="{{url_for('logout')}}">Logout</a>
+    </p>
+    </ul>
+    </nav>
+    </header>
+    <main class="main">
+      <section id="about" class="about section">
+      <div class="container section-title" data-aos="fade-up">
+      <h2>Dados do Perfil</h2>
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+      <div class="row gy-4 justify-content-center">
+      <div class="col-lg-4">
+      <img src="{{ user_data['url_foto_150x200'] }}" alt="foto"
+      class="img-fluid" alt="">
       </div>
-
-      <!-- Se o boletim for enviado, exiba os dados aqui -->
-      {% if boletim %}
-      <div class="container mt-4">
-          <h3 style="margin: 40px 0px 20px;">Boletim - Ano Letivo: {{ ano_letivo }}</h3>
-          <table class="table table-striped">
-              <thead>
-                  <tr>
-                      <th>Disciplina</th>
-                      <th>Média Final</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  {% for disciplina in boletim %}
-                  <tr>
-                      <td>{{ disciplina.disciplina }}</td>
-                      <td>{{ disciplina.media_disciplina }}</td>
-                  </tr>
-                  {% endfor %}
-              </tbody>
-          </table>
-      </div>
+      <div class="col-lg-8 content">
+      <p class="fst-italic py-3"><b>Nome Completo:</b> {{
+      user_data.get('vinculo', {}).get('nome', 'Não disponível') }}</p>
+      <div class="row">
+      <div class="col-lg-6">
+      <ul>
+      <li><strong>ID:</strong> <span>{{ user_data.get('id',
+      'Não disponível') }}</span></li>
+      <li><strong>Matrícula:</strong> <span>{{
+      user_data.get('vinculo', {}).get('matricula', 'Não disponível')
+      }}</span></li>
+      <li><strong>CPF:</strong> <span>{{
+      user_data.get('cpf', 'Não disponível') }}</span></li>
+      <li><strong>RG:</strong> <span>
+      {% if user_data.get('rg') in [None, '', 'None',
+      'None-/-', '-'] %}
+      Não disponível
       {% else %}
-        <div class="alert alert-danger" role="alert">
-              Nenhum boletim encontrado.
-        </div>
+      {{ user_data.get('rg') }}
       {% endif %}
-      
-  </div>
-</section>
+      </span></li>
+      </ul>
+      </div>
+      <div class="col-lg-6">
+      <ul>
+      <li><strong>Filiação:</strong> <span>{{
+      user_data.get('filiacao', ['Não disponível', 'Não disponível']) |
+      join(' e ') if user_data.get('filiacao') not in [['None', 'None'],
+      [None, None]] else 'Não disponível' }}</span></li>
+      <li><strong>Data de Nascimento:</strong> <span>{{
+      user_data.get('data_nascimento', 'Não disponível') }}</span></li>
+      <li><strong>Naturalidade:</strong> <span>{{
+      user_data.get('naturalidade', 'Não disponível') if
+      user_data.get('naturalidade') != '-' else 'Não disponível'
+      }}</span></li>
+      <li><strong>Tipo Sanguíneo:</strong> <span>{{
+      user_data.get('tipo_sanguineo') if user_data.get('tipo_sanguineo') not
+      in ['None', None, 'NoneNone'] else 'Não disponível' }}</span></li>
+      <li><strong>Email:</strong> <span>{{
+      user_data.get('email', 'Não disponível') }}</span></li>
+      </ul>
+      </div>
+      </div>
+      </div>
+      <p><b>Vínculo:</b></p>
+      <div class="row">
+      <div class="col-lg-6">
+      <ul style="list-style-type: none;">
+      <li><b>Curso:</b> {{ user_data.get('vinculo', {}).get('curso',
+      'Não disponível') }}</li>
+      <li><b>Campus:</b> {{ user_data.get('vinculo',
+      {}).get('campus', 'Não disponível') }}</li>
+      <li><b>Situação:</b> {{ user_data.get('vinculo',
+      {}).get('situacao', 'Não disponível') }}</li>
+      </ul>
+      </div>
+      <div class="col-lg-6">
+      <ul style="list-style-type: none;">
+      <li><b>Situação Sistêmica:</b> {{ user_data.get('vinculo',
+      {}).get('situacao_sistemica', 'Não disponível') }}</li>
+      <li><b>Possui Cota MEC:</b> {{ 'Sim' if
+      user_data.get('vinculo', {}).get('cota_mec') else 'Não' }}</li>
+      <li><b>Possui Cota Sistec:</b> {{ 'Sim' if
+      user_data.get('vinculo', {}).get('cota_sistec') else 'Não' }}</li>
+      <li><b>Lattes:</b> <a href="{{ user_data.get('vinculo',
+      {}).get('curriculo_lattes', '#') }}" target="_blank">Currículo
+      Lattes</a></li>
+      </ul>
+      </div></div> </div> </div>
+      </section>
 
+    <!--Resume Section-->
+    <section id="resume" class="resume section light-background">
+      <div class="container section-title" data-aos="fade-up">
+          <h2>Visualizar Boletim</h2>
+          <div class="d-flex align-items-center justify-content-center">
+              <form method="post" action="{{ url_for('boletim') }}">
+                  <label for="ano_letivo">Ano Letivo:</label>
+                  <input type="text" name="ano_letivo" id="ano_letivo" required>
+                  <div class="d-flex align-items-center justify-content-center">
+                      <button class="button" style="margin-top: 4%; border: none;" type="submit">Ver Boletim</button>
+                  </div>
+              </form>
+          </div>
 
+          <!-- Se o boletim for enviado, exiba os dados aqui -->
+          {% if boletim %}
+          <div class="container mt-4">
+              <h3 style="margin: 40px 0px 20px;">Boletim - Ano Letivo: {{ ano_letivo }}</h3>
+              <table class="table table-striped">
+                  <thead>
+                      <tr>
+                          <th>Disciplina</th>
+                          <th>Média Final</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {% for disciplina in boletim %}
+                      <tr>
+                          <td>{{ disciplina.disciplina }}</td>
+                          <td>{{ disciplina.media_disciplina }}</td>
+                      </tr>
+                      {% endfor %}
+                  </tbody>
+              </table>
+          </div>
 
-</main>
-<footer id="footer" class="footer position-relative">
-<div class="container">
-<div class="copyright text-center ">
-<p>© <span>Copyright</span> <strong class="px-1
-sitename">iPortfolio</strong> <span>All Rights Reserved</span></p>
-</div>
-</div>
-</footer>
+          {% endif %}
 
-</body>
+    <!-- Bootstrap Modal for Error with Red Background -->
+    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content" style="background-color: #ffffff; border-color: #721c24;">
+          <div class="modal-header" style="background-color: #ffffff; color: #721c24;">
+            <h5 class="modal-title" id="errorModalLabel">Erro ao obter dados</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true" style="color: #721c24;">&times;</span>
+            </button>
+          </div>
+
+          <div class="modal-body" style="color: #721c24;">
+            Insira um ano válido. Tente novamente
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% if error_message %}
+    <script>
+        $(document).ready(function(){
+            $('#errorModal').modal('show');
+        });
+    </script>
+    {% endif %}
+
+      </div>
+    </section>
+
+    </main>
+    <footer id="footer" class="footer position-relative">
+    <div class="container">
+    <div class="copyright text-center ">
+      <img src="static/images/logo_IFRN.png" alt="foto"
+    class="img-fluid" alt="" width="150" height="auto">
+    <p>© <span>IFRN</span> <strong class="px-1
+    sitename">Instituto Federal do Rio Grande do Norte</strong></p>
+    </div>
+    </div>
+    </footer>
+
+  </body>
 {% endblock %}

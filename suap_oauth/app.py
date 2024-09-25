@@ -74,7 +74,10 @@ def boletim():
             return render_template('user.html', user_data=meus_dados.json(), boletim=boletim_data, ano_letivo=ano_letivo)
         except Exception as e:
             app.logger.error(f"Erro ao obter boletim: {e}")
-            return "Erro ao obter boletim", 500
+            error_message = "Erro ao obter boletim. Tente novamente."
+            meus_dados = oauth.suap.get('v2/minhas-informacoes/meus-dados')
+            meus_dados.raise_for_status()
+            return render_template('user.html', user_data=meus_dados.json(), error_message=error_message)
 
     return redirect(url_for('index'))
 
